@@ -1,7 +1,3 @@
-########################################################################
-##### COPYRIGHT 2018 onwards - Sunit Katkar (sunitkatkar@gmail.com)
-##### https://sunitkatkar.blogspot.com/ 
-########################################################################
 spring:
   thymeleaf:
     cache: false
@@ -14,30 +10,15 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
         show_sql: true
         format_sql: true
-        type: trace   
+        type: trace
+  datasource:
+    url: jdbc:mysql://localhost:33060/dbs?useSSL=false
+    username: root
+    password: 12345
         
-##################################################################
-# MULTITENANCY MASTER DATABASE SETUP
-##################################################################        
-multitenancy: 
-  mtapp: 
-    master: 
-      datasource:
-        url: jdbc:mysql://localhost:3306/masterdb?useSSL=false
-        username: root
-        password: root
-        driverClassName: com.mysql.jdbc.Driver
-        connectionTimeout: 20000
-        maxPoolSize: 10
-        idleTimeout: 300000
-        minIdle: 10
-        poolName: masterdb-connection-pool
-
-##################################################################
-# LOGGING LEVELS
-##################################################################        
 logging:
   level:
     org:

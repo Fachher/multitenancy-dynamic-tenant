@@ -32,22 +32,6 @@ import com.sunitkatkar.blogspot.tenant.model.Role;
 import com.sunitkatkar.blogspot.tenant.model.User;
 import com.sunitkatkar.blogspot.tenant.service.UserService;
 
-/**
- * {@link CustomUserDetailsService} contract defines a single method called
- * loadUserByUsernameAndTenantname.
- * 
- * The {@link CustomUserDetailsServiceImpl} class simply implements the contract
- * and delegates to {@link UserService} to get the
- * {@link com.example.model.User} from the database so that it can be compared
- * with the {@link org.springframework.security.core.userdetails.User} for
- * authentication. Authentication occurs via the
- * {@link CustomUserDetailsAuthenticationProvider}.
- * 
- * @author Sunit Katkar
- * @version 1.0
- * @since 1.0 (May 2018)
- *
- */
 @Service("userDetailsService")
 public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
 

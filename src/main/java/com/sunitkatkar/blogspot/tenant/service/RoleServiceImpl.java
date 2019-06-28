@@ -23,17 +23,6 @@ import org.springframework.stereotype.Service;
 import com.sunitkatkar.blogspot.tenant.model.Role;
 import com.sunitkatkar.blogspot.tenant.repository.RoleRepository;
 
-/**
- * Implementation of the {@link RoleService} which accesses the {@link Role}
- * entity. This is the recommended way to access the entities through an
- * interface rather than using the corresponding repository. This allows for
- * separation into repository code and the service layer.
- * 
- * @author Sunit Katkar, sunitkatkar@gmail.com
- *         (https://sunitkatkar.blogspot.com/)
- * @since ver 1.0 (May 2018)
- * @version 1.0
- */
 @Service
 public class RoleServiceImpl implements RoleService {
 

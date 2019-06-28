@@ -20,16 +20,6 @@ import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 
 import com.sunitkatkar.blogspot.util.TenantContextHolder;
 
-/**
- * Hibernate needs to know which database to use i.e. which tenant to connect
- * to. This class provides a mechanism to provide the correct datasource at run
- * time.
- * 
- * @author Sunit Katkar, sunitkatkar@gmail.com
- *         (https://sunitkatkar.blogspot.com/)
- * @since ver 1.0 (May 2018)
- * @version 1.0
- */
 public class CurrentTenantIdentifierResolverImpl
         implements CurrentTenantIdentifierResolver {
 

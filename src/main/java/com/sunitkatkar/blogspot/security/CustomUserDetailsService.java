@@ -19,12 +19,6 @@ package com.sunitkatkar.blogspot.security;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-/**
- * @author Sunit Katkar
- * @version 1.0
- * @since 1.0 (May 2018)
- *
- */
 public interface CustomUserDetailsService {
 
     UserDetails loadUserByUsernameAndTenantname(String username,

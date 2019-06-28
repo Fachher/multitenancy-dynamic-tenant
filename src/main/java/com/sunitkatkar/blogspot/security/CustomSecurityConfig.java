@@ -30,15 +30,6 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-/**
- * Configuration of security related beans and methods. The access to different
- * urls within the application is defined here.
- * 
- * @author Sunit Katkar
- * @version 1.0
- * @since 1.0 (May 2018)
- *
- */
 @Configuration
 @EnableWebSecurity
 public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -46,10 +37,6 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
-    /**
-     * This is where access to various resources (urls) in the application is
-     * defined
-     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //@formatter:off
@@ -67,16 +54,6 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
        //@formatter:on 
     }
 
-    /**
-     * Create an instance of the custom authentication filter which intercepts
-     * and processes the end user's login form submission for further
-     * authentication processing. This filter is added before other filters so
-     * that it can intercept the user login form submission and extract the the
-     * additional 'tenant' field
-     * 
-     * @return
-     * @throws Exception
-     */
     public CustomAuthenticationFilter authenticationFilter() throws Exception {
         CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
         filter.setAuthenticationManager(authenticationManagerBean());
@@ -91,12 +68,6 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authProvider());
     }
 
-    /**
-     * Authentication provider which provides the logged in user's credentials
-     * for verification and authentication if they are coeect
-     * 
-     * @return
-     */
     public AuthenticationProvider authProvider() {
         // The custom authentication provider defined for this app
         CustomUserDetailsAuthenticationProvider provider = new CustomUserDetailsAuthenticationProvider(
@@ -104,11 +75,6 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-    /**
-     * The page to show if authentication fails
-     * 
-     * @return
-     */
     public SimpleUrlAuthenticationFailureHandler failureHandler() {
         return new SimpleUrlAuthenticationFailureHandler("/login?error=true");
     }

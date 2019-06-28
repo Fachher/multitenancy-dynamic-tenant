@@ -23,26 +23,9 @@ import org.springframework.stereotype.Repository;
 
 import com.sunitkatkar.blogspot.tenant.model.User;
 
-/**
- * Repository for the {@link User} JPA entity. Any custom methods, not already
- * defined in {@link JpaRepository}, are to be defined here
- * 
- * @author Sunit Katkar, sunitkatkar@gmail.com
- *         (https://sunitkatkar.blogspot.com/)
- * @since ver 1.0 (May 2018)
- * @version 1.0
- */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    /**
-     * Custom / Named query for selecting a user based on the username and
-     * tenant id
-     * 
-     * @param username
-     * @param tenant
-     * @return
-     */
     @Query("select p from User p where p.username = :username and p.tenant = :tenant")
     User findByUsernameAndTenantname(@Param("username") String username,
             @Param("tenant") String tenant);

@@ -28,22 +28,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-/**
- * Role entity to represent a ROLE of the {@link User} in the system.
- * 
- * The JPA definitions of {@link User} and {@link Role} will cause the following
- * 3 tables to be created:
- * <ul>
- * <li>user</li>
- * <li>role</li>
- * <li>user_roles</li>
- * </ul>
- * 
- * @author Sunit Katkar, sunitkatkar@gmail.com
- *         (https://sunitkatkar.blogspot.com/)
- * @since ver 1.0 (May 2018)
- * @version 1.0
- */
 @Entity
 @Table(name = "role")
 public class Role implements Serializable {
@@ -58,14 +42,8 @@ public class Role implements Serializable {
     @Column(name = "role")
     private String role;
 
-    /**
-     * Defining the Many-to-Many relation of users and roles. A Role can belong
-     * to many Users and many Users can belong to a Role.
-     */
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<User> users;
-
-    // Getters and setters
 
     public int getId() {
         return id;
@@ -83,17 +61,10 @@ public class Role implements Serializable {
         this.role = role;
     }
 
-    /**
-     * @return the users
-     */
     public Set<User> getUsers() {
         return users;
     }
 
-    /**
-     * @param users
-     *            the users to set
-     */
     public void setUsers(Set<User> users) {
         this.users = users;
     }

@@ -28,17 +28,6 @@ import org.springframework.stereotype.Service;
 import com.sunitkatkar.blogspot.tenant.model.User;
 import com.sunitkatkar.blogspot.tenant.repository.UserRepository;
 
-/**
- * Implementation of the {@link UserService} which accesses the {@link User}
- * entity. This is the recommended way to access the entities through an
- * interface rather than using the corresponding repository. This allows for
- * separation into repository code and the service layer.
- * 
- * @author Sunit Katkar, sunitkatkar@gmail.com
- *         (https://sunitkatkar.blogspot.com/)
- * @since ver 1.0 (May 2018)
- * @version 1.0
- */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -53,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        // Encrypt the password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User justSavedUser = userRepository.save(user);
         LOG.info("User:" + justSavedUser.getUsername() + " saved.");

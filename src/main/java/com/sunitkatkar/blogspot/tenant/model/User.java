@@ -34,22 +34,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
-/**
- * User entity to represent a {@link User} of the system.
- * 
- * The JPA definitions of {@link User} and {@link Role} will cause the following
- * 3 tables to be created:
- * <ul>
- * <li>user</li>
- * <li>role</li>
- * <li>user_roles</li>
- * </ul>
- * 
- * @author Sunit Katkar, sunitkatkar@gmail.com
- *         (https://sunitkatkar.blogspot.com/)
- * @since ver 1.0 (May 2018)
- * @version 1.0
- */
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
@@ -70,28 +54,15 @@ public class User implements Serializable {
     @NotNull(message = "*Please provide your password")
     private String password;
 
-    /**
-     * Boolean flag to set if the user should be active when created in the User
-     * table
-     */
     @Column(name = "active")
     private boolean active;
 
-    /**
-     * Name of the tenant to which the user belongs
-     */
     @Column(name = "tenant")
     private String tenant;
 
-    /**
-     * Many-to-Many relation between a User and Role. A user can have many roles
-     * and vice versa
-     */
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
-
-    // Getters and setters
 
     public int getId() {
         return id;

@@ -25,47 +25,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 
-/**
- * {@link CustomUserDetailsAuthenticationProvider} extends
- * {@link AbstractUserDetailsAuthenticationProvider} and delegates to the
- * {@link CustomUserDetailService} to retrieve the User. The most important
- * feature of this class is the implementation of the <code>retrieveUser</code>
- * method.
- * 
- * Note that the authentication token must be cast to CustomAuthenticationToken
- * to access the custom field - tenant
- * 
- * 
- * @author Sunit Katkar
- * @version 1.0
- * @since 1.0 (May 2018)
- */
 public class CustomUserDetailsAuthenticationProvider
         extends AbstractUserDetailsAuthenticationProvider {
 
-    /**
-     * The plaintext password used to perform
-     * PasswordEncoder#matches(CharSequence, String)} on when the user is not
-     * found to avoid SEC-2056
-     * (https://github.com/spring-projects/spring-security/issues/2280).
-     */
     private static final String USER_NOT_FOUND_PASSWORD = "userNotFoundPassword";
 
-    /**
-     * For encoding and/or matching the encrypted password stored in the
-     * database with the user submitted password
-     */
     private PasswordEncoder passwordEncoder;
 
     private CustomUserDetailsService userDetailsService;
 
-    /**
-     * The password used to perform
-     * {@link PasswordEncoder#matches(CharSequence, String)} on when the user is
-     * not found to avoid SEC-2056. This is necessary, because some
-     * {@link PasswordEncoder} implementations will short circuit if the
-     * password is not in a valid format.
-     */
     private String userNotFoundEncodedPassword;
 
     public CustomUserDetailsAuthenticationProvider(
@@ -75,15 +43,6 @@ public class CustomUserDetailsAuthenticationProvider
         this.userDetailsService = userDetailsService;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.security.authentication.dao.
-     * AbstractUserDetailsAuthenticationProvider#additionalAuthenticationChecks(
-     * org. springframework.security.core.userdetails.UserDetails,
-     * org.springframework.security.authentication.
-     * UsernamePasswordAuthenticationToken)
-     */
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails,
             UsernamePasswordAuthenticationToken authentication)
@@ -118,14 +77,6 @@ public class CustomUserDetailsAuthenticationProvider
                 .encode(USER_NOT_FOUND_PASSWORD);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.springframework.security.authentication.dao.
-     * AbstractUserDetailsAuthenticationProvider#retrieveUser(java.lang.String,
-     * org.springframework.security.authentication.
-     * UsernamePasswordAuthenticationToken)
-     */
     @Override
     protected UserDetails retrieveUser(String username,
             UsernamePasswordAuthenticationToken authentication)

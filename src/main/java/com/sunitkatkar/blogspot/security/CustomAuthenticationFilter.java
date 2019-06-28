@@ -26,18 +26,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.sunitkatkar.blogspot.util.TenantContextHolder;
 
-/**
- * This is the filter which is called first when the user submits the login
- * form. This filter extracts the username, password, and tenant fields from the
- * request. These values are used to create an instance of
- * {@link CustomAuthenticationToken} which is passed to the
- * {@link AuthenticationProvider} for authentication:
- * 
- * @author Sunit Katkar
- * @version 1.0
- * @since 1.0 (May 2018)
- *
- */
 public class CustomAuthenticationFilter
         extends UsernamePasswordAuthenticationFilter {
 

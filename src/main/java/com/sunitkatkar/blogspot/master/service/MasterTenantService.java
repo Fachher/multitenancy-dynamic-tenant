@@ -19,17 +19,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.sunitkatkar.blogspot.master.model.MasterTenant;
 
-/**
- * Service definition which accesses the {@link MasterTenant} entity. This is
- * the recommended way to access the entities through an interface rather than
- * using the corresponding repository. This allows for separation into
- * repository code and the service layer.
- *
- * @author Sunit Katkar, sunitkatkar@gmail.com
- *         (https://sunitkatkar.blogspot.com/)
- * @since ver 1.0 (May 2018)
- * @version 1.0
- */
 public interface MasterTenantService {
     
     MasterTenant findByTenantId(@Param("tenantId") String tenantId);

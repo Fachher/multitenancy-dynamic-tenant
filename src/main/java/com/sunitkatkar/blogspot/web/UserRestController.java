@@ -13,24 +13,12 @@ import com.sunitkatkar.blogspot.util.TenantContextHolder;
 import com.sunitkatkar.blogspot.tenant.model.User;
 import com.sunitkatkar.blogspot.tenant.service.UserService;
 
-/**
- * Rest Controller to handle all requests to the /user end point
- * 
- * @author Sunit Katkar, sunitkatkar@gmail.com
- *         (https://sunitkatkar.blogspot.com/)
- * @since ver 1.0 (May 2018)
- * @version 1.0
- */
 @RestController
 public class UserRestController {
 
     @Autowired
     private UserService userService;
 
-    /**
-     * @param tenantId
-     * @return
-     */
     @GetMapping("/user/{tenantId}")
     @ResponseBody
     public List<String> getUsersForTenant(
