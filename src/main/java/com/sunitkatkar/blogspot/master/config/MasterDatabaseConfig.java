@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -28,14 +29,14 @@ public class MasterDatabaseConfig {
     @Bean(name = "masterEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean masterEntityManagerFactory(final EntityManagerFactoryBuilder factory,
                                                                              final DataSource dataSource,
+                                                                             final HibernateProperties hibernateProperties,
                                                                              final JpaProperties properties) {
 
-        final HibernateSettings settings = new HibernateSettings();
-        final Map<String, Object> jpaProperties = new HashMap<>(properties.getHibernateProperties(settings));
+        final Map<String, Object> tenantProperties = hibernateProperties.determineHibernateProperties(properties.getProperties(), new HibernateSettings());
 
         return factory.dataSource(dataSource)
                 .packages("com.sunitkatkar.blogspot")
-                .properties(jpaProperties)
+                .properties(tenantProperties)
                 .persistenceUnit("masterdb-persistence-unit")
                 .build();
     }

@@ -26,6 +26,7 @@ import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -76,19 +77,15 @@ public class TenantDatabaseConfig {
             final EntityManagerFactoryBuilder factory,
             final DataSource dataSource,
             final JpaProperties properties,
-            final MultiTenantConnectionProvider connectionProvider,
-            final CurrentTenantIdentifierResolver tenantResolver) {
-
-        final HibernateSettings settings = new HibernateSettings();
-        final Map<String, Object> jpaProperties = new HashMap<>(properties.getHibernateProperties(settings));
-        jpaProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
-        jpaProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT_CONNECTION_PROVIDER, connectionProvider);
-        jpaProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, tenantResolver);
-
+            final HibernateProperties hibernateProperties) {
+        final Map<String, Object> tenantProperties = hibernateProperties.determineHibernateProperties(properties.getProperties(), new HibernateSettings());
+        tenantProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA.name());
+        tenantProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProvider());
+        tenantProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolver());
         return factory.dataSource(dataSource)
                 .packages("com.sunitkatkar.blogspot")
                 .persistenceUnit("tenantdb-persistence-unit")
-                .properties(jpaProperties)
+                .properties(tenantProperties)
                 .build();
     }
 }
