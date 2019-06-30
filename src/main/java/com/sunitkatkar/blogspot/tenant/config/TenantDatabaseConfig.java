@@ -79,7 +79,7 @@ public class TenantDatabaseConfig {
             final JpaProperties properties,
             final HibernateProperties hibernateProperties) {
         final Map<String, Object> tenantProperties = hibernateProperties.determineHibernateProperties(properties.getProperties(), new HibernateSettings());
-        tenantProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.SCHEMA.name());
+        tenantProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT, MultiTenancyStrategy.DATABASE.name());
         tenantProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProvider());
         tenantProperties.put(org.hibernate.cfg.Environment.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolver());
         return factory.dataSource(dataSource)
